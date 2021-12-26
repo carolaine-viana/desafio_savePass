@@ -49,22 +49,22 @@ export function RegisterLoginData() {
 
     const dataKey = '@savepass:logins';
 
-    const response = await AsyncStorage.getItem(dataKey);
-    const responseFormatted = JSON.parse(response) || [];
+    // Save data on AsyncStorage and navigate to 'Home' screen
+    const response = await AsyncStorage.getItem(dataKey)
+    const responseFormatted = JSON.parse(response) || []
 
-    const newListData = [
+    const newLoginListData = [
       ...responseFormatted,
       newLoginData
-    ];
+    ]
 
-    await AsyncStorage.setItem(
-      dataKey,
-      JSON.stringify(newListData));
+    await AsyncStorage.setItem(dataKey, JSON.stringify(newLoginListData))
 
-    navigate('Home');
+    navigate('Home')
   }
 
   return (
+    <>
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -77,9 +77,7 @@ export function RegisterLoginData() {
             testID="service-name-input"
             title="Nome do serviço"
             name="service_name"
-            error={
-              errors.service_name && errors.service_name.message
-            }
+            error={errors.service_name && errors.service_name.message}
             control={control}
             autoCapitalize="sentences"
             autoCorrect
@@ -88,9 +86,7 @@ export function RegisterLoginData() {
             testID="email-input"
             title="E-mail"
             name="email"
-            error={
-         errors.email && errors.email.message
-            }
+            error={errors.email && errors.email.message}
             control={control}
             autoCorrect={false}
             autoCapitalize="none"
@@ -100,9 +96,7 @@ export function RegisterLoginData() {
             testID="password-input"
             title="Senha"
             name="password"
-            error={
-              errors.password && errors.password.message
-            }
+            error={errors.password && errors.password.message}
             control={control}
             secureTextEntry
           />
@@ -117,5 +111,6 @@ export function RegisterLoginData() {
         </Form>
       </Container>
     </KeyboardAvoidingView>
+    </>
   )
 }
